@@ -58,6 +58,7 @@ export class Form extends Component {
                       <div className="form-group mb-3">
                         <label className="h3">Name :</label>
                         <input
+                          required
                           name="name"
                           value={name}
                           onChange={this.handleForm}
@@ -69,6 +70,7 @@ export class Form extends Component {
                       <div className="form-group mb-3">
                         <label className="h3">Department :</label>
                         <input
+                          required
                           name="dept"
                           value={dept}
                           onChange={this.handleForm}
@@ -80,6 +82,7 @@ export class Form extends Component {
                       <div className="form-group mb-3">
                         <label className="h3">Rating :</label>
                         <input
+                          required
                           name="rating"
                           value={rating}
                           onChange={this.handleForm}
@@ -97,7 +100,7 @@ export class Form extends Component {
               </div>
             </div>
           ) : (
-            <Employee employees={users} backFunc={this.goBack}/>
+            <Employee employees={users} backFunc={this.goBack} />
           )}
         </div>
       </>
