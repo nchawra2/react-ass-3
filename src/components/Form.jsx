@@ -1,36 +1,34 @@
 import React, { Component } from "react";
-import Employees from "./Employees";
-
-import "./Form.css";
+import Employee from "./Employee";
 
 export class Form extends Component {
   state = {
     name: "",
-    department: "",
+    dept: "",
     rating: "",
     users: [],
     showForm: true,
   };
 
-  onchange = (e) => {
+  handleForm = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
 
-  onsubmit = (e) => {
+  onSubmit = (e) => {
     e.preventDefault();
     this.setState({
       users: [
         ...this.state.users,
         {
           name: this.state.name,
-          department: this.state.department,
+          dept: this.state.dept,
           rating: this.state.rating,
         },
       ],
       name: "",
-      department: "",
+      dept: "",
       rating: "",
       showForm: !this.state.showForm,
     });
@@ -43,59 +41,63 @@ export class Form extends Component {
   };
 
   render() {
+    let { name, dept, rating, users, showForm } = this.state;
+
     return (
       <>
-        <div className="page">
-          {this.state.showForm && (
-            <>
-              <div className="employee-form">
-                <h1>employee feeedback form</h1>
-                <form onSubmit={this.onsubmit}>
-                  <div className="form-group">
-                    <label htmlFor="name">Name :</label>
-                    <input
-                      required
-                      type="text"
-                      name="name"
-                      value={this.state.name}
-                      onChange={this.onchange}
-                      id="name"
-                      className="form-control"
-                    />
+        <div className="container">
+          {showForm ? (
+            <div className="row mt-5">
+              <div className="col-md-5 m-auto">
+                <div className="card">
+                  <div className="card-header bg-dark text-white">
+                    <h2>EMPLOYEE FEEDBACK FORM</h2>
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="department">Department :</label>
-                    <input
-                      required
-                      name="department"
-                      value={this.state.department}
-                      onChange={this.onchange}
-                      type="text"
-                      id="department"
-                      className="form-control"
-                    />
+                  <div className="card-body">
+                    <form onSubmit={this.onSubmit}>
+                      <div className="form-group mb-3">
+                        <label className="h3">Name :</label>
+                        <input
+                          name="name"
+                          value={name}
+                          onChange={this.handleForm}
+                          type="text"
+                          className="form-control"
+                          placeholder="Employee Name"
+                        />
+                      </div>
+                      <div className="form-group mb-3">
+                        <label className="h3">Department :</label>
+                        <input
+                          name="dept"
+                          value={dept}
+                          onChange={this.handleForm}
+                          type="text"
+                          className="form-control"
+                          placeholder="Employee Department"
+                        />
+                      </div>
+                      <div className="form-group mb-3">
+                        <label className="h3">Rating :</label>
+                        <input
+                          name="rating"
+                          value={rating}
+                          onChange={this.handleForm}
+                          type="number"
+                          className="form-control"
+                          placeholder="Employee rating"
+                        />
+                      </div>
+                      <button type="submit" className="btn btn-success ">
+                        Submit
+                      </button>
+                    </form>
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="rating">Rating :</label>
-                    <input
-                      required
-                      name="rating"
-                      value={this.state.rating}
-                      onChange={this.onchange}
-                      type="number"
-                      id="rating"
-                      className="form-control"
-                    />
-                  </div>
-                  <button type="submit" className="form-control">
-                    submit
-                  </button>
-                </form>
+                </div>
               </div>
-            </>
-          )}
-          {!this.state.showForm && (
-            <Employees employess={this.state.users} backFunc={this.goBack} />
+            </div>
+          ) : (
+            <Employee employees={users} backFunc={this.goBack}/>
           )}
         </div>
       </>
